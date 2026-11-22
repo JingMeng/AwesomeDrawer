@@ -1,13 +1,18 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
+    namespace 'com.hx.curtain.drawer'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    compileSdk 34
 
 
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 26
+        minSdk 15
+        targetSdk 34
         versionCode 1
         versionName "1.0.0"
 
@@ -16,13 +21,9 @@ android {
 
     buildTypes {
         release {
-            postprocessing {
-                removeUnusedCode false
-                removeUnusedResources false
-                obfuscate false
-                optimizeCode false
-                proguardFile 'proguard-rules.pro'
-            }
+            minifyEnabled false
+            proguardFiles 'proguard-rules.pro'
+    
         }
     }
 
@@ -33,3 +34,5 @@ dependencies {
 
 
 }
+
+

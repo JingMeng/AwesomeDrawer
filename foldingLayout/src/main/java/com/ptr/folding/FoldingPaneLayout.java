@@ -19,7 +19,7 @@ package com.ptr.folding;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.widget.SlidingPaneLayout;
+import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;

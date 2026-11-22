@@ -1,10 +1,10 @@
-package com.hx.materail.ui.tutorial;
+﻿package com.hx.materail.ui.tutorial;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -15,12 +15,12 @@ public class CurtainView extends View {
     private Bitmap mbitmap;
     private static int WIDTH = 30;
     private static int HEIGHT = 30;
-    //最大水平的波形高度
+    //鏈€澶ф按骞崇殑娉㈠舰楂樺害
     private float H_MAX_WAVE_HEIGHT = 50;
-    //最大垂直的波形高度
+    //鏈€澶у瀭鐩寸殑娉㈠舰楂樺害
     private float V_MAX_WAVE_HEIGHT = 500;
 
-    //小格相交的总的点数
+    //灏忔牸鐩镐氦鐨勬€荤殑鐐规暟
     private int COUNT = (WIDTH + 1) * (HEIGHT + 1);
     private float[] verts = new float[COUNT * 2];
     private float[] origs = new float[COUNT * 2];
@@ -55,22 +55,18 @@ public class CurtainView extends View {
         for (int i = 0; i < HEIGHT + 1; i++) {
             for (int j = 0; j < WIDTH + 1; j++) {
 
-                //把每一个水平像素通过正弦公式转换成正弦曲线
-                //H_MAX_WAVE_HEIGHT表示波峰跟波低的垂直距离，皱褶后会王桑超过水平线，所以往下偏移WAVE_HEIGHT / 2
-                //5表示波浪的密集度，表示波峰波谷总共有五个,对应上面左图的1,2,3,4,5
-                //j就是水平像的X轴坐标
-                //K决定正弦曲线起始点(x=0)点的Y坐标，k=0就是从波峰波谷的中间开始左->右绘制曲线
-                float yOffset = H_MAX_WAVE_HEIGHT / 2 * progress + H_MAX_WAVE_HEIGHT / 2 * progress * (float) Math.sin((float)j/WIDTH*5*Math.PI+k);
+                //鎶婃瘡涓€涓按骞冲儚绱犻€氳繃姝ｅ鸡鍏紡杞崲鎴愭寮︽洸绾?                //H_MAX_WAVE_HEIGHT琛ㄧず娉㈠嘲璺熸尝浣庣殑鍨傜洿璺濈锛岀毐瑜跺悗浼氱帇妗戣秴杩囨按骞崇嚎锛屾墍浠ュ線涓嬪亸绉籛AVE_HEIGHT / 2
+                //5琛ㄧず娉㈡氮鐨勫瘑闆嗗害锛岃〃绀烘尝宄版尝璋锋€诲叡鏈変簲涓?瀵瑰簲涓婇潰宸﹀浘鐨?,2,3,4,5
+                //j灏辨槸姘村钩鍍忕殑X杞村潗鏍?                //K鍐冲畾姝ｅ鸡鏇茬嚎璧峰鐐?x=0)鐐圭殑Y鍧愭爣锛宬=0灏辨槸浠庢尝宄版尝璋风殑涓棿寮€濮嬪乏->鍙崇粯鍒舵洸绾?                float yOffset = H_MAX_WAVE_HEIGHT / 2 * progress + H_MAX_WAVE_HEIGHT / 2 * progress * (float) Math.sin((float)j/WIDTH*5*Math.PI+k);
 
-                //垂直方向竖直压缩时的坐标
+                //鍨傜洿鏂瑰悜绔栫洿鍘嬬缉鏃剁殑鍧愭爣
                 float xPostion = origs[(i*(WIDTH+1)+j)*2+0] + (bitmapwidth - origs[(i*(WIDTH+1)+j)*2+0]) * progress;
-                //垂直方向正弦曲线优化后的坐标,1.1->个波峰波谷
-                float vXSinPostion = V_MAX_WAVE_HEIGHT / 2 * progress * (float) Math.sin((float)i/WIDTH*1.1*Math.PI + k);
-                //每个像素扭曲后的x坐标
-                //origs[(i*(WIDTH+1)+j)*2+0] 原图x坐标
+                //鍨傜洿鏂瑰悜姝ｅ鸡鏇茬嚎浼樺寲鍚庣殑鍧愭爣,1.1->涓尝宄版尝璋?                float vXSinPostion = V_MAX_WAVE_HEIGHT / 2 * progress * (float) Math.sin((float)i/WIDTH*1.1*Math.PI + k);
+                //姣忎釜鍍忕礌鎵洸鍚庣殑x鍧愭爣
+                //origs[(i*(WIDTH+1)+j)*2+0] 鍘熷浘x鍧愭爣
                 verts[(i*(WIDTH+1)+j)*2+0]= vXSinPostion *((bitmapwidth - xPostion) / bitmapwidth) + xPostion;
-                //每个像素扭曲后的Y坐标
-                //origs[(i*(WIDTH+1)+j)*2+1] 原图y坐标
+                //姣忎釜鍍忕礌鎵洸鍚庣殑Y鍧愭爣
+                //origs[(i*(WIDTH+1)+j)*2+1] 鍘熷浘y鍧愭爣
                 verts[(i * (WIDTH + 1) + j) * 2 + 1] = origs[(i * (WIDTH + 1) + j) * 2 + 1] + yOffset;//
 
                 int channel = 255 - (int)(yOffset * 3);
@@ -100,7 +96,7 @@ public class CurtainView extends View {
             float fy = bitmapheight / (float) HEIGHT * i;
             for (int j = 0; j < WIDTH + 1; j++) {
                 float fx = bitmapwidth / (float) WIDTH * j;
-                //偶数位记录x坐标  奇数位记录Y坐标
+                //鍋舵暟浣嶈褰晉鍧愭爣  濂囨暟浣嶈褰昚鍧愭爣
                 origs[index * 2 + 0] = verts[index * 2 + 0] = fx;
                 origs[index * 2 + 1] = verts[index * 2 + 1] = fy;
                 index++;
@@ -108,3 +104,4 @@ public class CurtainView extends View {
         }
     }
 }
+
